@@ -2,23 +2,46 @@
 Vivarium AI Tools
 =================
 
-Vivarium AI Tools is a local agent plugin-style repository for GitHub Copilot customization.
+Vivarium AI Tools is a VS Code agent plugin for the vivarium ecosystem. It
+provides AI-assisted development workflows including code review, design
+document creation, and PR management.
 
-It includes a Python code review orchestrator and specialist sub-agents:
+Agents
+======
 
-- ``code_reviewer``
+**User-invocable:**
+
+- ``code_reviewer`` — orchestrates parallel code review across 5 specialist sub-agents
+- ``design-brainstormer`` — structured brainstorming through collaborative dialogue (read-only)
+- ``design-doc-writer`` — writes formal RST design documents from approved designs
+
+**Sub-agents (invoked by orchestrators):**
+
 - ``review_maintainability``
 - ``review_dry``
 - ``review_design``
 - ``review_tests``
 - ``review_documentation``
 
+Skills
+======
+
+- ``brainstorming`` — structured ideation process with multi-agent pattern reference
+- ``design-doc`` — RST design document generation from team template
+- ``pull-request`` — PR creation using repo-specific templates and ``gh`` CLI
+
 Repository Layout
 =================
 
-- ``plugin.json``: plugin metadata
-- ``agents/``: custom agent definitions
-- project metadata files copied from ``vivarium_dependencies``
+Follows the `VS Code agent plugin <https://code.visualstudio.com/docs/copilot/customization/agent-plugins>`_
+convention with `agentskills.io <https://agentskills.io/specification>`_ skill format::
+
+    plugin.json              # Plugin metadata
+    agents/                  # Custom agent definitions
+    skills/                  # Agent skills (agentskills.io spec)
+      brainstorming/
+      design-doc/
+      pull-request/
 
 Using as a local plugin
 =======================
