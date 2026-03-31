@@ -17,7 +17,7 @@ It includes:
 
 **Regression Debugger**
 
-- ``regression_debugger`` — orchestrator that traces data pipeline changes across repos to find the cause of simulation regressions
+- ``model_regression_debugger`` — orchestrator that traces data pipeline changes across repos to find the cause of simulation regressions
 - ``_diff_analyzer`` — sub-agent that analyzes diffs in a single repo (run in parallel for multi-repo changes)
 - ``_hypothesis_tester`` — sub-agent that tests a single hypothesis about a regression cause
 
