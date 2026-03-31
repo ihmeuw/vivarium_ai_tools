@@ -47,26 +47,13 @@ Collect all verdicts (CONFIRMED / REFUTED / INCONCLUSIVE) and proceed to the nex
 
 ### Phase 5: Report
 
-Structure findings as:
+Structure findings with these sections:
 
-```markdown
-## Regression Analysis: <symptom>
-
-### Summary
-<1-2 paragraph description of the regression and root cause (if found)>
-
-### Confirmed Causes
-<numbered list of changes confirmed to alter behavior, with file references>
-
-### Likely Causes (need runtime verification)
-<numbered list of changes that are plausible but couldn't be confirmed through static analysis>
-
-### Ruled Out
-<numbered list of hypotheses tested and refuted, with reasoning>
-
-### Recommended Verification Steps
-<specific runtime checks to confirm the diagnosis — use correct v4 API calls>
-```
+- **Summary**: 1-2 paragraph description of the regression and root cause (if found)
+- **Confirmed Causes**: Numbered list of changes confirmed to alter behavior, with file references
+- **Likely Causes**: Changes that are plausible but need runtime verification
+- **Ruled Out**: Hypotheses tested and refuted, with reasoning
+- **Recommended Verification Steps**: Specific runtime checks to confirm the diagnosis
 
 ## Common Pitfalls
 

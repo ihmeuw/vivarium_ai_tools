@@ -25,25 +25,14 @@ You will receive:
 
 ## Output
 
-Return a structured verdict:
+Return a structured verdict with these sections:
 
-```markdown
-## Hypothesis: <one-line summary>
-
-### Verdict: CONFIRMED | REFUTED | INCONCLUSIVE
-
-### Evidence
-<specific code references showing why the hypothesis is confirmed, refuted, or inconclusive>
-
-### Old Behavior
-<what the old code did, with file:line references>
-
-### New Behavior
-<what the new code does, with file:line references>
-
-### Impact
-<if confirmed or inconclusive: how this change would manifest in simulation output>
-```
+- **Hypothesis**: One-line summary
+- **Verdict**: CONFIRMED, REFUTED, or INCONCLUSIVE
+- **Evidence**: Specific code references showing why
+- **Old Behavior**: What the old code did, with file:line references
+- **New Behavior**: What the new code does, with file:line references
+- **Impact**: If confirmed or inconclusive, how this change would manifest in simulation output
 
 ## Constraints
 

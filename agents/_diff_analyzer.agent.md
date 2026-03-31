@@ -25,26 +25,13 @@ You are a diff analysis specialist for vivarium simulation codebases. Given two 
 
 ## Output Format
 
-Return a structured summary:
+Return a structured summary with these sections:
 
-```markdown
-## Diff Analysis: <repo name> (<base> → <feature>)
-
-### Files Changed
-<list with change counts>
-
-### Behavioral Changes
-<numbered list of changes that alter computed values, with file:line references>
-
-### Structural Changes (verify equivalence)
-<numbered list of API migrations that should be equivalent but need verification>
-
-### Low-Risk Changes
-<brief list of cosmetic/formatting changes>
-
-### Key Concerns
-<anything that stands out as potentially problematic given the reported symptom>
-```
+- **Files Changed**: List with change counts
+- **Behavioral Changes**: Numbered list of changes that alter computed values, with file:line references
+- **Structural Changes** (verify equivalence): Numbered list of API migrations that should be equivalent but need verification
+- **Low-Risk Changes**: Brief list of cosmetic/formatting changes
+- **Key Concerns**: Anything that stands out as potentially problematic given the reported symptom
 
 ## Constraints
 
