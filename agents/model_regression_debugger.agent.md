@@ -71,4 +71,3 @@ When analyzing vivarium framework code, avoid these mistakes:
 - ONLY review code that is part of the regression investigation (diffs, related files)
 - Be specific and actionable — avoid vague feedback like "this could be improved"
 - When sub-agents return overlapping findings, consolidate them and note which perspectives flagged the issue
-- 
