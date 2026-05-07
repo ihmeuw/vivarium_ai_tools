@@ -1,0 +1,15 @@
+{
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "Write|Edit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "echo 'Reminder: run make lint if you edited Python files.'"
+                    }
+                ]
+            }
+        ]
+    }
+}

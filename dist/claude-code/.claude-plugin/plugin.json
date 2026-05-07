@@ -1,0 +1,8 @@
+{
+    "name": "vivarium-ai-tools",
+    "version": "0.1.0",
+    "description": "Custom agent workflows for vivarium development.",
+    "author": {
+        "name": "ihmeuw"
+    }
+}
