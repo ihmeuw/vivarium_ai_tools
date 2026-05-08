@@ -1,0 +1,14 @@
+{
+    "name": "vivarium-ai-tools",
+    "owner": {
+        "name": "ihmeuw"
+    },
+    "plugins": [
+        {
+            "name": "vivarium-ai-tools",
+            "source": "./plugins/vivarium-ai-tools",
+            "description": "Custom agent workflows for vivarium development.",
+            "version": "0.1.0"
+        }
+    ]
+}

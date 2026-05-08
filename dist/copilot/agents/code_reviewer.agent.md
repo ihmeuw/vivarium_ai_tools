@@ -3,6 +3,7 @@ name: code_reviewer
 description: "Use when: reviewing a pull request, code review, PR review, review changes, check code quality, DRY analysis, maintainability review. Reviews PRs for maintainability, DRY violations, design choices, tests, documentation, and functional correctness."
 argument-hint: "A pull request to review, or a description of the changes to review."
 agents: [_review_maintainability, _review_dry, _review_design, _review_tests, _review_documentation]
+user-invocable: true
 tools: [read, search, agent, vscode, github/*]
 ---
 

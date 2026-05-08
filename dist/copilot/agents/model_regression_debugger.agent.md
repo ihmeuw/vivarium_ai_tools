@@ -3,6 +3,7 @@ name: model_regression_debugger
 description: "Use when: debugging a simulation regression, V&V failure, unexpected output after a code update, tracing why a simulation metric changed between branches or versions."
 argument-hint: "Describe the regression symptom, which repos/branches are involved, and any researcher hypotheses."
 agents: [_diff_analyzer, _hypothesis_tester]
+user-invocable: true
 tools: [read, search, execute, agent, github/*, vscode]
 ---
 

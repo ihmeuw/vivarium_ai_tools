@@ -276,6 +276,32 @@ def build_claude_agent(src_path: Path, dest_dir: Path) -> None:
     dest_path.write_text(serialize_frontmatter(claude_fm) + "\n" + body)
 
 
+def build_claude_command(src_path: Path, dest_dir: Path) -> bool:
+    """Emit a slash-command wrapper for an agent flagged user-invocable.
+
+    Returns True if a command file was written, False if the agent opted out.
+    """
+    frontmatter, _body = parse_frontmatter(src_path.read_text())
+    if not frontmatter.get("user-invocable"):
+        return False
+
+    agent_name = frontmatter["name"]
+    command_fm = {}
+    if "description" in frontmatter:
+        command_fm["description"] = frontmatter["description"]
+    if "argument-hint" in frontmatter:
+        command_fm["argument-hint"] = frontmatter["argument-hint"]
+
+    body = (
+        f"\nUse the `{agent_name}` subagent to handle the following request.\n"
+        f"\n$ARGUMENTS\n"
+    )
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    dest_path = dest_dir / f"{agent_name}.md"
+    dest_path.write_text(serialize_frontmatter(command_fm) + body)
+    return True
+
+
 def build_copilot(src_dir: Path, dest_dir: Path) -> None:
     """Build the full Copilot plugin."""
     # Clean and recreate
@@ -301,37 +327,70 @@ def build_copilot(src_dir: Path, dest_dir: Path) -> None:
 
 
 def build_claude_code(src_dir: Path, dest_dir: Path) -> None:
-    """Build the full Claude Code plugin."""
+    """Build the full Claude Code plugin in marketplace-of-one layout.
+
+    dest_dir/
+      .claude-plugin/marketplace.json
+      plugins/<name>/
+        .claude-plugin/plugin.json
+        agents/  hooks/  skills/
+    """
     # Clean and recreate
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    agents_dir = dest_dir / "agents"
+
+    plugin_root = dest_dir / "plugins" / PLUGIN_META["name"]
+    agents_dir = plugin_root / "agents"
     agents_dir.mkdir(parents=True)
 
-    # Generate .claude-plugin/plugin.json
-    plugin_dir = dest_dir / ".claude-plugin"
-    plugin_dir.mkdir(parents=True)
-    manifest = {
+    # Plugin manifest: <plugin_root>/.claude-plugin/plugin.json
+    plugin_meta_dir = plugin_root / ".claude-plugin"
+    plugin_meta_dir.mkdir(parents=True)
+    plugin_manifest = {
         "name": PLUGIN_META["name"],
         "version": PLUGIN_META["version"],
         "description": PLUGIN_META["description"],
         "author": {"name": PLUGIN_META["publisher"]},
     }
-    (plugin_dir / "plugin.json").write_text(json.dumps(manifest, indent=4) + "\n")
+    (plugin_meta_dir / "plugin.json").write_text(
+        json.dumps(plugin_manifest, indent=4) + "\n"
+    )
 
-    # Build each agent
+    # Marketplace manifest: <dest_dir>/.claude-plugin/marketplace.json
+    marketplace_meta_dir = dest_dir / ".claude-plugin"
+    marketplace_meta_dir.mkdir(parents=True)
+    marketplace_manifest = {
+        "name": PLUGIN_META["name"],
+        "owner": {"name": PLUGIN_META["publisher"]},
+        "plugins": [
+            {
+                "name": PLUGIN_META["name"],
+                "source": f"./plugins/{PLUGIN_META['name']}",
+                "description": PLUGIN_META["description"],
+                "version": PLUGIN_META["version"],
+            }
+        ],
+    }
+    (marketplace_meta_dir / "marketplace.json").write_text(
+        json.dumps(marketplace_manifest, indent=4) + "\n"
+    )
+
+    # Build each agent, and a slash-command wrapper for any agent
+    # whose source frontmatter sets user-invocable: true.
+    commands_dir = plugin_root / "commands"
     for src_file in sorted((src_dir / "agents").glob("*.md")):
         build_claude_agent(src_file, agents_dir)
+        build_claude_command(src_file, commands_dir)
 
     # Copy skills if they exist
     skills_src = src_dir / "skills"
     if skills_src.exists() and any(skills_src.iterdir()):
-        shutil.copytree(skills_src, dest_dir / "skills")
+        shutil.copytree(skills_src, plugin_root / "skills")
 
     # Copy hooks if they exist
     hooks_src = src_dir / "hooks"
     if hooks_src.exists() and any(hooks_src.iterdir()):
-        hooks_dest = dest_dir / "hooks"
+        hooks_dest = plugin_root / "hooks"
         hooks_dest.mkdir(parents=True, exist_ok=True)
         for hook_file in hooks_src.glob("*.json"):
             shutil.copy2(hook_file, hooks_dest)
