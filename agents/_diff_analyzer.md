@@ -1,7 +1,7 @@
 ---
 name: _diff_analyzer
 description: "Use when: analyzing diffs between branches across one or more repos, summarizing code changes relevant to a regression, identifying which component changes could affect simulation outcomes."
-tools: [read, search, execute, github/*]
+tools: Read, Grep, Glob, Bash
 user-invocable: false
 ---
 

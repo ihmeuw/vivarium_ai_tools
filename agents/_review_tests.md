@@ -1,7 +1,7 @@
 ---
 name: _review_tests
 description: "Use when: reviewing code for test coverage, test quality, edge cases, and whether tests validate the intended behavior without being brittle."
-tools: [read, search, github/*]
+tools: Read, Grep, Glob, Bash
 user-invocable: false
 ---
 

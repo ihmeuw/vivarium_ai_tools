@@ -1,7 +1,7 @@
 ---
 name: _hypothesis_tester
 description: "Test a single hypothesis about the cause of a simulation regression by comparing old and new code."
-tools: [read, search, execute]
+tools: Read, Grep, Glob, Bash
 user-invocable: false
 ---
 

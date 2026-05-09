@@ -1,7 +1,7 @@
 ---
 name: _review_dry
 description: "Use when: reviewing code for DRY violations, duplicated logic, repeated patterns, opportunities to extract helpers or shared utilities, near-identical code blocks."
-tools: [read, search, github/*]
+tools: Read, Grep, Glob, Bash
 user-invocable: false
 ---
 

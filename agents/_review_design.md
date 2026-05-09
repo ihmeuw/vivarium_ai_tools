@@ -1,7 +1,7 @@
 ---
 name: _review_design
 description: "Use when: reviewing code for design and data structure choices, algorithmic efficiency, whether the right abstractions are used, representation trade-offs, API surface design."
-tools: [read, search, github/*]
+tools: Read, Grep, Glob, Bash
 user-invocable: false
 ---
 

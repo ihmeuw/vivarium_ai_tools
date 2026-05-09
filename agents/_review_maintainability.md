@@ -1,7 +1,7 @@
 ---
 name: _review_maintainability
 description: "Use when: reviewing code for maintainability, readability, documentation quality, implicit assumptions, magic numbers, docstring accuracy, coupling between components."
-tools: [read, search, github/*]
+tools: Read, Grep, Glob, Bash
 user-invocable: false
 ---
 
