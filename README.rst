@@ -59,6 +59,49 @@ Once installed, agents are invocable as ``@code_reviewer`` and
 ``@model_regression_debugger``. Slash commands are namespaced under the
 plugin name: ``/viv:code-review`` and ``/viv:debug-regression``.
 
+Security model and recommended deny rules
+=========================================
+
+The 9 agents in this plugin have the following shell access:
+
+- The 5 ``_review_*`` sub-agents have **no Bash access at all**. They are
+  fed PR context by the orchestrator and analyze code with ``Read``,
+  ``Grep``, and ``Glob`` only.
+- ``code_reviewer``, ``model_regression_debugger``, ``_diff_analyzer``,
+  and ``_hypothesis_tester`` declare ``Bash`` to run ``git`` and ``gh``
+  commands. In practice, every operation they perform is a read-only git
+  command (``git diff``, ``git log``, ``git show``, ``git status``),
+  which Claude Code auto-approves via its built-in read-only command
+  allowlist — no prompts, no scoping needed.
+
+For destructive or out-of-scope commands, Claude Code's default
+permission system prompts you before execution, so a prompt-injected
+agent cannot silently run ``rm``, ``curl``, or similar without your
+approval.
+
+If you run with ``defaultMode: bypassPermissions`` or ``auto``, or
+otherwise want an explicit deny floor that cannot be bypassed by an
+errant prompt-allow, add this snippet to ``~/.claude/settings.json``:
+
+.. code-block:: json
+
+   {
+     "permissions": {
+       "deny": [
+         "Bash(git push *)",
+         "Bash(git reset --hard *)",
+         "Bash(git rebase *)",
+         "Bash(git clean -fd *)",
+         "Bash(gh repo delete *)",
+         "Bash(gh auth logout *)",
+         "Bash(gh pr close *)"
+       ]
+     }
+   }
+
+Deny rules take precedence over allow rules and over hook decisions, so
+these will block the listed commands in every permission mode.
+
 Installing in VS Code GitHub Copilot
 ====================================
 

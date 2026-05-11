@@ -1,7 +1,7 @@
 ---
 name: _review_documentation
 description: "Use when: reviewing code for documentation quality, including docstrings, comments, README/changelog updates, and public API documentation accuracy."
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob
 user-invocable: false
 ---
 
