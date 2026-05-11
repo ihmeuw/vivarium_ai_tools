@@ -13,6 +13,13 @@
    ``Glob`` only; the orchestrator gathers PR context and passes it in.
    Documented recommended ``permissions.deny`` snippet for users running in
    bypass/auto modes.
+ - Fix orchestrator subagent-spawning tool field: ``code_reviewer`` and
+   ``model_regression_debugger`` now declare
+   ``Agent(_review_maintainability, _review_dry, ...)`` and
+   ``Agent(_diff_analyzer, _hypothesis_tester)`` respectively, using the
+   documented allowlist syntax. Replaces the incorrect ``Task`` tool name and
+   the redundant ``agents:`` stowaway field (which was confusing the Copilot
+   parser).
 
 **0.1.0 - 7/29/25**
 
