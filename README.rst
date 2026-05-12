@@ -2,6 +2,15 @@
 Vivarium AI Tools
 =================
 
+----
+
+**NOTE: This repository has been archived.**
+
+Development has moved to the `vivarium-suite monorepo <https://github.com/ihmeuw/vivarium-suite>`_,
+where this code now lives at ``tools/ai-tools/``.
+
+----
+
 Vivarium AI Tools is a Claude Code plugin providing custom agent
 workflows for vivarium development. The repository is structured as
 both a plugin and a single-plugin marketplace, so Claude Code users can

@@ -1,3 +1,8 @@
+**0.2.0 - 05/12/26**
+
+Archive notice: this package is archived and no longer maintained. Please use the 
+vivarium-suite monorepo for future development. Refer to the README for more details.
+
 **0.2.0**
 
  - Restructure as a Claude Code plugin with a self-hosted marketplace.
